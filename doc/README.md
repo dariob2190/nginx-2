@@ -125,3 +125,49 @@ Después, añadimos un nuevo `location` específico para el archivo `contact.htm
 Reiniciamos nginx y comprobamos que la portada es accesible, pero al ir a Contacto nos pide clave:
 
 ![Captura de la autenticación](./capturas/captura5.png)
+
+### 5.3 Combinación de la autenticación básica con la restricción de acceso por IP
+
+Podemos combinar la autenticación HTTP con la restricción por IP. Se pueden implementar dos escenarios:
+
+- Que el usuario deba cumplir ambas cosas (IP válida y autenticado).
+- Que el usuario deba cumplir al menos una de las dos.
+
+Esto se gestiona con la directiva `satisfy`. Si la ponemos a `all`, se deben cumplir todas las condiciones; si es `any`, basta con una.
+
+### 5.4 Tarea 3
+
+Vamos a configurar Nginx para que no deje acceder con la IP de la máquina anfitriona al directorio raíz. Modificamos el archivo de configuración usando las directivas `allow` y `deny`:
+
+```
+    location / {
+        deny 192.168.2.1;
+        allow all;
+        try_files $uri $uri/ =404;
+    }
+```
+
+Al intentar entrar, vemos la página de error 403 Forbidden y podemos comprobar el mensaje correspondiente en el `error.log`:
+
+![Captura del error 403](./capturas/captura6.png)
+
+![Captura del registro](./capturas/captura7.png)
+
+### 5.5 Tarea 4
+
+Por último, configuramos Nginx para que exija tanto una IP válida como un usuario válido (ambas a la vez) desde la máquina anfitriona.
+
+Para ello usamos `satisfy all` junto con las directivas de IP y de autenticación:
+
+```
+    location / {
+        satisfy all;
+
+        allow 192.168.2.1;
+        deny all;
+
+        auth_basic_user_file /etc/nginx/.htpasswd;
+
+        try_files $uri $uri/ =404;
+    }
+```
