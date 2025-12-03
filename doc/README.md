@@ -22,3 +22,29 @@ dpkg -l | grep openssl
 ```
 
 Si no lo estuviera, tendríamos que instalarlo.
+
+## 2. Creación de usuarios y contraseñas
+
+Ahora vamos a crear un archivo oculto llamado `.htpasswd` dentro del directorio de configuración `/etc/nginx` donde guardaremos los usuarios y contraseñas.
+
+Ejecutamos el siguiente comando para crear el archivo y añadir el primer usuario (con mi nombre), teniendo cuidado de no olvidar los dos puntos después del nombre:
+
+```
+sudo sh -c "echo -n 'luisdario:' >> /etc/nginx/.htpasswd"
+```
+
+Hecho esto, vamos a crear la contraseña cifrada para este usuario de forma interactiva:
+
+```
+sudo sh -c "openssl passwd -apr1 >> /etc/nginx/.htpasswd"
+```
+
+Repetimos el proceso para crear un segundo usuario con mi primer apellido. Podemos comprobar con un `cat` que los usuarios y las contraseñas aparecen correctamente cifrados en el fichero:
+
+```
+cat /etc/nginx/.htpasswd
+```
+
+Nos tendría que salir algo así:
+
+![Captura del contenido .htpasswd](./capturas/captura1.png)
