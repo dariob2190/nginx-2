@@ -90,7 +90,7 @@ Si decidimos cancelar la autenticación, se nos negará el acceso al sitio. El e
 
 ## 5. Tareas
 
-### 5.1 Tarea 1
+### 5.1. Tarea 1
 
 En esta tarea vamos a intentar entrar primero con un usuario erróneo y luego con uno correcto. Después, revisaremos los registros para ver los sucesos.
 
@@ -105,7 +105,7 @@ En la siguiente captura se ve el error de usuario inválido:
 
 ![Captura del error de usuario inválido](./capturas/captura4.png)
 
-### 5.2 Tarea 2
+### 5.2. Tarea 2
 
 Ahora vamos a aplicar la autenticación solo a una parte de la web. Primero borramos las dos líneas que hacen referencia a la autenticación básica en el `location` del directorio raíz.
 
@@ -126,7 +126,7 @@ Reiniciamos nginx y comprobamos que la portada es accesible, pero al ir a Contac
 
 ![Captura de la autenticación](./capturas/captura5.png)
 
-### 5.3 Combinación de la autenticación básica con la restricción de acceso por IP
+### 5.3. Combinación de la autenticación básica con la restricción de acceso por IP
 
 Podemos combinar la autenticación HTTP con la restricción por IP. Se pueden implementar dos escenarios:
 
@@ -135,7 +135,7 @@ Podemos combinar la autenticación HTTP con la restricción por IP. Se pueden im
 
 Esto se gestiona con la directiva `satisfy`. Si la ponemos a `all`, se deben cumplir todas las condiciones; si es `any`, basta con una.
 
-### 5.4 Tarea 3
+### 5.4. Tarea 3
 
 Vamos a configurar Nginx para que no deje acceder con la IP de la máquina anfitriona al directorio raíz. Modificamos el archivo de configuración usando las directivas `allow` y `deny`:
 
