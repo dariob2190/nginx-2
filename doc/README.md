@@ -48,3 +48,32 @@ cat /etc/nginx/.htpasswd
 Nos tendría que salir algo así:
 
 ![Captura del contenido .htpasswd](./capturas/captura1.png)
+
+## 3. Configurando el servidor Nginx
+
+Para configurar la autenticación básica, editaremos la configuración del server block sobre el cual queremos aplicar la restricción.
+
+Ejecutamos `sudo nano /etc/nginx/sites-available/luisdario.test` y añadimos las directivas `auth_basic` y `auth_basic_user_file` dentro del `location /`:
+
+```
+server {
+    listen 80;
+    listen [::]:80;
+
+    root /var/www/luisdario.test/html/static-website-example;
+    index index.html index.htm index.nginx-debian.html;
+    server_name luisdario.test;
+
+    location / {
+        auth_basic "Área restringida";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+        try_files $uri $uri/ =404;
+    }
+}
+```
+
+Y reiniciamos el servidor para aplicar la configuración:
+
+```
+sudo systemctl restart nginx
+```
