@@ -77,3 +77,17 @@ Y reiniciamos el servidor para aplicar la configuración:
 ```
 sudo systemctl restart nginx
 ```
+
+## 4. Comprobación
+
+Para verificar que funciona, accedemos desde nuestra máquina anfitriona a `http://luisdario.test`. Se nos debe solicitar autenticación, como se muestra en la siguiente captura:
+
+![Captura de la autenticación](./capturas/captura2.png)
+
+Si decidimos cancelar la autenticación o proporcionamos credenciales incorrectas, se nos negará el acceso al sitio. El error que aparece es el "401 Authorization Required":
+
+![Captura del error 401](./capturas/captura3.png)
+
+Si proporcionamos credenciales correctas, se nos permitirá el acceso al sitio:
+
+![Captura del acceso correcto](./capturas/captura4.png)
