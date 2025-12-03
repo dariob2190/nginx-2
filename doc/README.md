@@ -84,10 +84,44 @@ Para verificar que funciona, accedemos desde nuestra máquina anfitriona a `http
 
 ![Captura de la autenticación](./capturas/captura2.png)
 
-Si decidimos cancelar la autenticación o proporcionamos credenciales incorrectas, se nos negará el acceso al sitio. El error que aparece es el "401 Authorization Required":
+Si decidimos cancelar la autenticación, se nos negará el acceso al sitio. El error que aparece es el "401 Authorization Required":
 
 ![Captura del error 401](./capturas/captura3.png)
 
-Si proporcionamos credenciales correctas, se nos permitirá el acceso al sitio:
+## 5. Tareas
 
-![Captura del acceso correcto](./capturas/captura4.png)
+### 5.1 Tarea 1
+
+En esta tarea vamos a intentar entrar primero con un usuario erróneo y luego con uno correcto. Después, revisaremos los registros para ver los sucesos.
+
+Podemos ver los logs con los siguientes comandos:
+
+```
+sudo cat /var/log/nginx/error.log
+sudo cat /var/log/nginx/access.log
+```
+
+En la siguiente captura se ve el error de usuario inválido:
+
+![Captura del error de usuario inválido](./capturas/captura4.png)
+
+### 5.2 Tarea 2
+
+Ahora vamos a aplicar la autenticación solo a una parte de la web. Primero borramos las dos líneas que hacen referencia a la autenticación básica en el `location` del directorio raíz.
+
+Después, añadimos un nuevo `location` específico para el archivo `contact.html` con la autenticación activada:
+
+```
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location /contact.html {
+        auth_basic "Área de contacto";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+    }
+```
+
+Reiniciamos nginx y comprobamos que la portada es accesible, pero al ir a Contacto nos pide clave:
+
+![Captura de la autenticación](./capturas/captura5.png)
