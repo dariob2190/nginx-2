@@ -1,7 +1,7 @@
-# Práctica 2.1: Instalación y configuración de servidor web Nginx
+# Práctica 2.2: Autenticación en Nginx
 
 ## Luis Darío Bermúdez Ferrer
 
-En esta práctica veremos como montar nuestro propio servidor Nginx usando tecnologías como Vagrant.
+En esta práctica profundizaremos en la autenticación en Nginx.
 
-Toda la documentación necesaria está [aquí](https://github.com/dariob2190/nginx-1/tree/main/doc)
+Toda la documentación necesaria está [aquí](https://github.com/dariob2190/nginx-2/tree/main/doc)
